@@ -135,8 +135,13 @@
 
 </template>
 
-<script>
-export default {};
+<script setup>
+
+import axios from 'axios'; 
+axios.get('https://ott-fogliata.github.io/vuejs-s2i-repository/cultured-meat.json').then(response => {
+    console.log(response); 
+})
+
 </script>
 
 <style>

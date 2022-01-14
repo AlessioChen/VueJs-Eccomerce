@@ -9,9 +9,11 @@
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "autoprefixer": "^9",
-    "postcss": "^7",
+    "axios": "^0.24.0",
+    "postcss": "^7.0.39",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "vue": "^3.0.0",
+    "vue-axios": "^3.4.0",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
@@ -21,10 +23,5 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-tailwind": "~2.2.18"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  }
 }
