@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
-import Products from '../components/Products.vue';
+import Cart from '../components/Cart.vue'; 
+import Products from '../components/Products.vue'; 
 
 </script>
