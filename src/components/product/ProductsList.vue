@@ -9,7 +9,6 @@
             <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
           </svg>
         </button>
-
       </div>
       <p class="pt-1 font-extrabold  text-left text-xl text-gray-900">€{{product.price}}</p>
     </a>
@@ -17,21 +16,9 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
-import axios from "axios";
 
-let products = ref([]);
+let props = defineProps(['products']); 
 
-onMounted(() => {
-  axios
-    .get(
-      "https://ott-fogliata.github.io/vuejs-s2i-repository/cultured-meat.json"
-    )
-    .then((response) => {
-      products.value = response.data;
-    });
-});
 </script>
 
 <style>
