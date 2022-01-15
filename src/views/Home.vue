@@ -1,5 +1,6 @@
 <template>
 
+  <Nav/>
   <Products v-if="showProducts" v-on:openProduct="openProduct" v-on:addToCart="addToCart" :products=products />
   <single-product v-else :product="product" v-on:closeProduct="closeProduct" />
 
@@ -11,11 +12,13 @@ import SingleProduct from "../components/product/SingleProduct.vue";
 import { reactive, ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import axios from "axios";
+import ProductsListVue from "../components/product/ProductsList.vue";
+import Nav from "../components/Nav.vue"
 
 let products = ref([]);
 let product = ref();
 let showProducts = ref(true);
-let cart = ref({}); 
+let cart = ref({});
 
 onMounted(() => {
   axios
@@ -37,8 +40,12 @@ const closeProduct = () => {
 };
 
 const addToCart = (product) => {
-  
-}
+  if (cart.value[product.name] === null)
+    cart.value[product.name] = { ...product, quantity: 1 };
+  else {
+    cart.value[product.name].quantity += 1;
+  }
+};
 </script>
 
 
