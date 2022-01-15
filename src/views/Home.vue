@@ -1,7 +1,7 @@
 <template>
 
-  <Products v-if="showProducts" v-on:openProduct="openProduct" :products = products />
-  <single-product v-else :product="product" />
+  <Products v-if="showProducts" v-on:openProduct="openProduct" v-on:addToCart="addToCart" :products=products />
+  <single-product v-else :product="product" v-on:closeProduct="closeProduct" />
 
 </template>
 
@@ -12,10 +12,10 @@ import { reactive, ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import axios from "axios";
 
-
-let products = ref([]); 
-let product = ref(); 
-let showProducts = ref(true); 
+let products = ref([]);
+let product = ref();
+let showProducts = ref(true);
+let cart = ref({}); 
 
 onMounted(() => {
   axios
@@ -28,14 +28,16 @@ onMounted(() => {
 });
 
 const openProduct = (value) => {
+  showProducts.value = false;
+  product.value = value;
+};
 
-  showProducts.value = false; 
+const closeProduct = () => {
+  showProducts.value = true;
+};
 
-  product.value = value; 
-  console.log(product.value)
-
-
-
+const addToCart = (product) => {
+  
 }
 </script>
 
