@@ -39,7 +39,7 @@
                 </svg>
               </button>
             </div>
-            <p class=" text-4xl value font-bold mt-5 md:mt-0">€ {{item.price}} x {{item.quantity}} = €{{ singleItemTotal(item)}}</p>
+            <p class=" text-2xl value font-bold mt-5 md:mt-0">€ {{item.price}} x {{item.quantity}} = €{{ singleItemTotal(item)}}</p>
           </div>
         </li>
 
