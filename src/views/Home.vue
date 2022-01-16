@@ -15,13 +15,18 @@ import axios from "axios";
 import ProductsListVue from "../components/product/ProductsList.vue";
 import Nav from "../components/Nav.vue";
 
+
+// DATA 
 let products = ref([]);
 let product = ref();
 let showProducts = ref(true);
 
-//on create
 
-onMounted(() => {
+// ON CREATE
+let data = localStorage.getItem("products");
+data = data ? JSON.parse(data) : [];
+
+if (data.length == 0) {
   axios
     .get(
       "https://ott-fogliata.github.io/vuejs-s2i-repository/cultured-meat.json"
@@ -36,20 +41,25 @@ onMounted(() => {
           quantity: 1,
         };
       }
-
-      let cart = JSON.parse(localStorage.getItem("cart"));
-
-      if (cart.length > 0) {
-        for (let i = 0; i < cart.length; i++) {
-          for (let j = 0; j < products.value.length; j++) {
-            if (products.value[j].id == cart[i].id) {
-              products.value[j].inCart = true;
-            }
-          }
-        }
-      }
+      localStorage.setItem("products", JSON.stringify(products.value));
     });
-});
+} else {
+  products.value = data;
+}
+
+let cart = JSON.parse(localStorage.getItem("cart"));
+
+if (cart != null) {
+  for (let i = 0; i < cart.length; i++) {
+    for (let j = 0; j < products.value.length; j++) {
+      if (products.value[j].id == cart[i].id) {
+        products.value[j].inCart = true;
+      }
+    }
+  }
+}
+
+//METHODS
 
 const openProduct = (value) => {
   showProducts.value = false;

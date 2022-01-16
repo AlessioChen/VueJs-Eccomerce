@@ -1,5 +1,5 @@
 <template>
-
+  <Nav />
   <div class="w-full h-full bg-gray-100">
 
     <!--  section 1  -->
@@ -31,13 +31,13 @@
                 </svg>
               </button>
 
-              <button class= "bg-red-200  ml-5 fa fa-plus rounded-lg bg flex justify-center items-center p-3 z-10">
+              <button class="bg-red-200  ml-5 fa fa-plus rounded-lg bg flex justify-center items-center p-3 z-10">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </button>
             </div>
-            <p class=" text-xl value font-bold mt-5 md:mt-0">€ {{item.price}}</p>
+            <p class=" text-4xl value font-bold mt-5 md:mt-0">€ {{item.price}}</p>
           </div>
         </li>
 
@@ -64,6 +64,7 @@
 
 <script setup >
 import { ref } from "@vue/reactivity";
+import Nav from "../components/Nav.vue";
 
 const props = defineProps(["data"]);
 let ticket = ref({ products: null, total: 0 });
@@ -72,13 +73,10 @@ let fields = ref(["#", "remove", "image", "name", "quantity", "price"]);
 let cart = ref(JSON.parse(localStorage.getItem("cart")));
 
 
-const clean = () => {
-  cart = [];
-};
 </script>
 
 <style>
-.header-section{
+.header-section {
   background-color: #ffc400;
 }
 
