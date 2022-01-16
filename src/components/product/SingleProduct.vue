@@ -37,8 +37,8 @@ const handleClose = () => {
 };
 
 const handleAddToCartButton = (product) => {
-  emit("addProductToCart", product); 
-}
+  emit("addProductToCart", product);
+};
 </script>
 
 <style>

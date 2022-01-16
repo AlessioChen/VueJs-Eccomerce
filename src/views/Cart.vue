@@ -50,7 +50,12 @@
     <div class="header-section flex flex-row px-8 py-1 fixed bottom-0 w-screen w-full z-50">
       <div class="mr-12">
         <p class="title font-semibold text-sm">Total</p>
-        <p class="value font-semibold text-lg font-bold">€{{total}}</p>
+
+        <p v-if="!discount" class="value font-semibold text-lg font-bold">€{{total}}</p>
+        <div v-if="discount" class="value font-semibold text-lg font-bold">
+          <p>€{{total}} </p>
+          <p class="text-red-500"> You have got -10%! </p>
+        </div>
       </div>
       <div class="flex-grow text-center">
         <button class="bg-white px-10 py-3 rounded-lg w-full">
@@ -72,16 +77,23 @@ const props = defineProps(["data"]);
 const emit = defineEmits(["openProduct"]);
 
 let cart = ref(JSON.parse(localStorage.getItem("cart")));
+let discount = ref(false);
 
 const total = computed(() => {
   let sum = 0;
-
+  discount.value = false;
   for (let i = 0; i < cart.value.length; i++) {
     sum += cart.value[i].price * cart.value[i].quantity;
   }
 
-  return sum;
+  if (cart.value.length > 2) {
+    discount.value = true;
+    let disc = sum / 10;
+    sum -= disc;
+  }
+  return parseFloat(sum).toFixed(2);
 });
+
 const handleRemoveButton = (item) => {
   for (let i = 0; i < cart.value.length; i++) {
     if (cart.value[i].id == item.id) {
