@@ -2,7 +2,7 @@
 
   <Nav :cart="cart" />
   <Products v-if="showProducts" v-on:openProduct="openProduct" v-on:addToCart="addToCart" :products=products />
-  <single-product v-else :product="product" v-on:closeProduct="closeProduct"  v-on:addProductToCart="addToCart"/>
+  <single-product v-else :product="product" v-on:closeProduct="closeProduct" v-on:addProductToCart="addToCart" />
 
 </template>
 
@@ -22,7 +22,9 @@ let showProducts = ref(true);
 
 // ON CREATE
 let data = localStorage.getItem("products");
+let cart = localStorage.getItem("cart");
 data = data ? JSON.parse(data) : [];
+cart = cart ? JSON.parse(cart) : [];
 
 if (data.length == 0) {
   axios
@@ -44,8 +46,6 @@ if (data.length == 0) {
 } else {
   products.value = data;
 }
-
-let cart = JSON.parse(localStorage.getItem("cart"));
 
 if (cart != null) {
   for (let i = 0; i < cart.length; i++) {
@@ -70,8 +70,6 @@ const closeProduct = () => {
 
 const addToCart = (product) => {
   product.inCart = true;
-  let cart = localStorage.getItem("cart");
-  cart = cart ? JSON.parse(cart) : [];
   cart.push(product);
   localStorage.setItem("cart", JSON.stringify(cart));
 };

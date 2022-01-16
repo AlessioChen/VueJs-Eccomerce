@@ -67,12 +67,16 @@ import { ref } from "@vue/reactivity";
 import Nav from "../components/Nav.vue";
 
 const props = defineProps(["data"]);
+const emit = defineEmits(["openProduct"]);
+
 let ticket = ref({ products: null, total: 0 });
 let counter = ref(0);
 let fields = ref(["#", "remove", "image", "name", "quantity", "price"]);
 let cart = ref(JSON.parse(localStorage.getItem("cart")));
 
-
+const handleImageClick = (product) => {
+  emit("openProduct", product);
+};
 </script>
 
 <style>

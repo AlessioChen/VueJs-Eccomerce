@@ -1,16 +1,16 @@
 <template>
   <nav id="store" class="w-full z-30 top-0 px-6 py-1">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
-      <button @click="toHome" class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
+      <router-link to="/" class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
         Store
-      </button>
+      </router-link>
 
       <div class="flex items-center">
-        <button @click="toCart" class="pl-3 inline-block no-underline hover:text-black">
+        <router-link :to="{ name: 'Cart', params: { data: props.cart } }" class="pl-3 inline-block no-underline hover:text-black">
           <svg class="h-10 w-10 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
           </svg>
-        </button>
+        </router-link>
 
         <router-link to="/" class="pl-3 inline-block no-underline hover:text-black">
           <svg class="h-8 w-10 fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -26,15 +26,8 @@
 import { useRouter } from "vue-router";
 import CartVue from "../views/Cart.vue";
 
-const router = useRouter();
 const props = defineProps(["cart"]);
 
-const toHome = () => {
-  router.push("/");
-};
-const toCart = () => {
-  router.push({ name: "Cart", params: { data: props.cart } });
-};
 </script>
 
 <style>
