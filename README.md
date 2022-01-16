@@ -18,4 +18,5 @@ Navigate to `http://localhost:8080`. The app will automatically reload if you ch
 
 - [VueJs](https://vuejs.org)
 - [VueJs composion API](https://v3.vuejs.org/guide/composition-api-introduction.html#why-composition-api)
-- [VueJs SFC Syntax ](https://v3.vuejs.org/api/sfc-spec.html)
+- [VueJs SFC Syntax](https://v3.vuejs.org/api/sfc-spec.html)
+- [TailWind CSS](https://tailwindcss.com/)
