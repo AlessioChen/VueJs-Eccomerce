@@ -25,7 +25,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </button>
-              <input type="number" :value="item.quantity" class="text-center text-md font-semibold p-2 rounded w-20 focus:outline-none" />
+              <p class="text-center text-md font-semibold p-2 rounded w-20 focus:outline-none">{{item.quantity}} </p>
               <!-- Inc Button -->
               <button @click="handleIncButton(item)" class="bg-blue-200 fa fa-plus rounded-lg bg flex justify-center items-center p-3 z-10">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,7 +39,7 @@
                 </svg>
               </button>
             </div>
-            <p class=" text-4xl value font-bold mt-5 md:mt-0">€ {{item.price}}</p>
+            <p class=" text-4xl value font-bold mt-5 md:mt-0">€ {{item.price}} x {{item.quantity}} = €{{ singleItemTotal(item)}}</p>
           </div>
         </li>
 
@@ -94,6 +94,11 @@ const total = computed(() => {
   return parseFloat(sum).toFixed(2);
 });
 
+const singleItemTotal = (item) => {
+  computed(() => {});
+  return parseFloat(item.quantity * item.price).toFixed(2);
+};
+
 const handleRemoveButton = (item) => {
   for (let i = 0; i < cart.value.length; i++) {
     if (cart.value[i].id == item.id) {
@@ -115,7 +120,7 @@ const handleIncButton = (item) => {
 const handleDecButton = (item) => {
   for (let i = 0; i < cart.value.length; i++) {
     if (cart.value[i].id == item.id) {
-      if (cart.value[i].quantity > 0) cart.value[i].quantity--;
+      if (cart.value[i].quantity > 1) cart.value[i].quantity--;
       localStorage.setItem("cart", JSON.stringify(cart.value));
     }
   }
