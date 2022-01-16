@@ -1,6 +1,6 @@
 <template>
 
-  <Nav/>
+  <Nav :cart="cart" />
   <Products v-if="showProducts" v-on:openProduct="openProduct" v-on:addToCart="addToCart" :products=products />
   <single-product v-else :product="product" v-on:closeProduct="closeProduct" />
 
@@ -13,12 +13,25 @@ import { reactive, ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import axios from "axios";
 import ProductsListVue from "../components/product/ProductsList.vue";
-import Nav from "../components/Nav.vue"
+import Nav from "../components/Nav.vue";
 
 let products = ref([]);
 let product = ref();
 let showProducts = ref(true);
-let cart = ref({});
+
+// On Create
+let cart = [];
+if (JSON.parse(localStorage.getItem("products"))) {
+  cart = JSON.parse(localStorage.getItem("products"));
+} else {
+  cart = [];
+}
+
+for (let i = 0; i < cart.length; i++) {
+  for (let j = 0; j < products.value.length; j++) {
+    products.value[j].cart = true;
+  }
+}
 
 onMounted(() => {
   axios
@@ -27,6 +40,13 @@ onMounted(() => {
     )
     .then((response) => {
       products.value = response.data;
+      for (let i = 0; i < products.value.length; i++) {
+        products.value[i] = {
+          ...products.value[i],
+          inCart: false,
+          quantity: 1,
+        };
+      }
     });
 });
 
@@ -40,11 +60,16 @@ const closeProduct = () => {
 };
 
 const addToCart = (product) => {
-  if (cart.value[product.name] === null)
-    cart.value[product.name] = { ...product, quantity: 1 };
-  else {
-    cart.value[product.name].quantity += 1;
+  product.inCart = true; 
+  let cart = [];
+  if (JSON.parse(localStorage.getItem("products"))) {
+    cart = JSON.parse(localStorage.getItem("products"));
+  } else {
+    cart = [];
   }
+
+  cart.push(product);
+  localStorage.setItem("products", JSON.stringify(cart));
 };
 </script>
 
