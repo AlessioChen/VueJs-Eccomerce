@@ -19,19 +19,7 @@ let products = ref([]);
 let product = ref();
 let showProducts = ref(true);
 
-// On Create
-let cart = [];
-if (JSON.parse(localStorage.getItem("products"))) {
-  cart = JSON.parse(localStorage.getItem("products"));
-} else {
-  cart = [];
-}
-
-for (let i = 0; i < cart.length; i++) {
-  for (let j = 0; j < products.value.length; j++) {
-    products.value[j].cart = true;
-  }
-}
+//on create
 
 onMounted(() => {
   axios
@@ -43,9 +31,22 @@ onMounted(() => {
       for (let i = 0; i < products.value.length; i++) {
         products.value[i] = {
           ...products.value[i],
+          id: i,
           inCart: false,
           quantity: 1,
         };
+      }
+
+      let cart = JSON.parse(localStorage.getItem("cart"));
+
+      if (cart.length > 0) {
+        for (let i = 0; i < cart.length; i++) {
+          for (let j = 0; j < products.value.length; j++) {
+            if (products.value[j].id == cart[i].id) {
+              products.value[j].inCart = true;
+            }
+          }
+        }
       }
     });
 });
@@ -60,16 +61,11 @@ const closeProduct = () => {
 };
 
 const addToCart = (product) => {
-  product.inCart = true; 
-  let cart = [];
-  if (JSON.parse(localStorage.getItem("products"))) {
-    cart = JSON.parse(localStorage.getItem("products"));
-  } else {
-    cart = [];
-  }
-
+  product.inCart = true;
+  let cart = localStorage.getItem("cart");
+  cart = cart ? JSON.parse(cart) : [];
   cart.push(product);
-  localStorage.setItem("products", JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
 </script>
 

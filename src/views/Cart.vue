@@ -1,63 +1,101 @@
 <template>
- {{data}}
-  <div className="h-screen bg-gray-300">
-    <div className="py-12">
-      <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg md:max-w-5xl">
-        <div className="md:flex ">
-          <div className="w-full p-4 px-5 py-5">
-            <div className="md:grid md:grid-cols-3 gap-2 ">
-              <div className="col-span-2 p-5">
-                <h1 className="text-xl font-medium ">Shopping Cart</h1>
-                <div className="flex justify-between items-center mt-6 pt-6">
-                  <div className="flex items-center"> <img src="https://i.imgur.com/EEguU02.jpg" width={60} className="rounded-full " />
-                    <div className="flex flex-col ml-3"> <span className="md:text-md font-medium">Chicken momo</span> <span className="text-xs font-light text-gray-400">#41551</span> </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="pr-8 flex "> <span className="font-semibold">-</span> <input type="text" className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" defaultValue={1} /> <span className="font-semibold">+</span> </div>
-                    <div className="pr-8 "> <span className="text-xs font-medium">$10.50</span> </div>
-                    <div> <i className="fa fa-close text-xs font-medium" /> </div>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center pt-6 mt-6 border-t">
-                  <div className="flex items-center"> <img src="https://i.imgur.com/Uv2Yqzo.jpg" width={60} className="rounded-full " />
-                    <div className="flex flex-col ml-3 "> <span className="text-md font-medium w-auto">Spicy Mexican potatoes</span> <span className="text-xs font-light text-gray-400">#66999</span> </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="pr-8 flex"> <span className="font-semibold">-</span> <input type="text" className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" defaultValue={1} /> <span className="font-semibold">+</span> </div>
-                    <div className="pr-8"> <span className="text-xs font-medium">$10.50</span> </div>
-                    <div> <i className="fa fa-close text-xs font-medium" /> </div>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mt-6 pt-6 border-t">
-                  <div className="flex items-center"> <img src="https://i.imgur.com/xbTAITF.jpg" width={60} className="rounded-full " />
-                    <div className="flex flex-col ml-3 "> <span className="text-md font-medium">Breakfast</span> <span className="text-xs font-light text-gray-400">#86577</span> </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="pr-8 flex"> <span className="font-semibold">-</span> <input type="text" className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" defaultValue={1} /> <span className="font-semibold">+</span> </div>
-                    <div className="pr-8"> <span className="text-xs font-medium">$10.50</span> </div>
-                    <div> <i className="fa fa-close text-xs font-medium" /> </div>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mt-6 pt-6 border-t">
-                  <div className="flex items-center"> <i className="fa fa-arrow-left text-sm pr-2" /> <span className="text-md font-medium text-blue-500">Continue Shopping</span> </div>
-                  <div className="flex justify-center items-end"> <span className="text-sm font-medium text-gray-400 mr-1">Subtotal:</span> <span className="text-lg font-bold text-gray-800 "> $24.90</span> </div>
-                </div>
-              </div>
 
-            </div>
-          </div>
-        </div>
+  <div class="w-full h-full bg-gray-100">
+
+    <!--  section 1  -->
+    <header class="header-section flex flex-row px-8 py-3">
+      <button class="flex-none">
+        <span class="fa fa-chevron-left font-bold text-2xl" />
+      </button>
+      <div class="flex-grow text-center">
+        <h2 class="font-bold text-2xl">My Cart</h2>
       </div>
-    </div>
+    </header>
+
+    <!-- main content   -->
+    <main class="mb-12">
+      <ul v-for="item in cart" :key="item.id" class="p-8">
+
+        <li class="flex bg-white p-5 rounded-lg shadow-lg mb-5">
+          <img :src="item.image" class="w-32" />
+          <div class="flex-grow flex flex-col md:flex-row items-center justify-center md:justify-between">
+            <p class="title font-semibold text-sm md:text-lg mb-5 md:mb-0 md:pl-5">{{item.name}}</p>
+            <div class="flex">
+              <button class="bg-blue-200 fa fa-minus rounded-lg bg flex justify-center items-center p-3 z-10"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg> </button>
+              <input type="number" :value="item.quantity" class="text-center text-md font-semibold p-2 rounded w-20 focus:outline-none" />
+              <button class="bg-blue-200 fa fa-plus rounded-lg bg flex justify-center items-center p-3 z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
+
+              <button class= "bg-red-200  ml-5 fa fa-plus rounded-lg bg flex justify-center items-center p-3 z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
+            </div>
+            <p class=" text-xl value font-bold mt-5 md:mt-0">€ {{item.price}}</p>
+          </div>
+        </li>
+
+      </ul>
+    </main>
+
+    <!--  footer    -->
+    <footer class="header-section flex flex-row px-8 py-1 fixed bottom-0 w-screen w-full z-50">
+      <div class="mr-12">
+        <p class="title font-semibold text-sm">Total</p>
+        <p class="value font-semibold text-lg font-bold">$40.40</p>
+      </div>
+      <div class="flex-grow text-center">
+        <button class="bg-white px-10 py-3 rounded-lg w-full">
+          <span class="font-bold">Checkout</span>
+          <i class="fa fa-chevron-right"></i>
+        </button>
+      </div>
+    </footer>
+
   </div>
 
 </template>
 
 <script setup >
-const props = defineProps(["data"]);
+import { ref } from "@vue/reactivity";
 
-console.log(props.data)
+const props = defineProps(["data"]);
+let ticket = ref({ products: null, total: 0 });
+let counter = ref(0);
+let fields = ref(["#", "remove", "image", "name", "quantity", "price"]);
+let cart = ref(JSON.parse(localStorage.getItem("cart")));
+
+
+const clean = () => {
+  cart = [];
+};
 </script>
 
 <style>
+.header-section{
+  background-color: #ffc400;
+}
+
+input {
+  background: #f5f5f5;
+  margin: 0 -10px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 </style>
