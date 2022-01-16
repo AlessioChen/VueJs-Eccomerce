@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen m-auto w-100 flex justify-center items-center">
+  <div @click="handleClose" class="h-screen m-auto w-100 flex justify-center items-center">
     <div class="w-full p-4">
       <div class="card flex flex-col justify-center p-10 bg-white rounded-lg shadow-2xl">
         <div class="flex justify-between ">
@@ -19,7 +19,7 @@
         <div class="prod-info grid gap-10">
           <div class="flex flex-col md:flex-row justify-between items-center text-gray-900">
             <p class="font-bold text-xl">€ {{product.price}}</p>
-            <button class="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none">Add to cart</button>
+            <button @click="handleAddToCartButton(product)" class="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none">Add to cart</button>
           </div>
         </div>
       </div>
@@ -30,10 +30,14 @@
 
 <script setup>
 const props = defineProps(["product"]);
-const emit = defineEmits(["closeProduct"]); 
+const emit = defineEmits(["closeProduct", "addProductToCart"]);
 
 const handleClose = () => {
-  emit('closeProduct'); 
+  emit("closeProduct");
+};
+
+const handleAddToCartButton = (product) => {
+  emit("addProductToCart", product); 
 }
 </script>
 

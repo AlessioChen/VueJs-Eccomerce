@@ -2,7 +2,7 @@
 
   <Nav :cart="cart" />
   <Products v-if="showProducts" v-on:openProduct="openProduct" v-on:addToCart="addToCart" :products=products />
-  <single-product v-else :product="product" v-on:closeProduct="closeProduct" />
+  <single-product v-else :product="product" v-on:closeProduct="closeProduct"  v-on:addProductToCart="addToCart"/>
 
 </template>
 
@@ -15,12 +15,10 @@ import axios from "axios";
 import ProductsListVue from "../components/product/ProductsList.vue";
 import Nav from "../components/Nav.vue";
 
-
-// DATA 
+// DATA
 let products = ref([]);
 let product = ref();
 let showProducts = ref(true);
-
 
 // ON CREATE
 let data = localStorage.getItem("products");
