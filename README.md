@@ -4,7 +4,7 @@
 ### About the project
 Project made for VueJs Course on start2Impact, it's a demo for a food Ecommerce.  
 ### Getting started
-To get a local copy up and running follow these simple steps. You can also try a live demo on [Netlify](https://61e42681cccf0aeae307e19b--silly-elion-99ee40.netlify.app/#/) 
+To get a local copy up and running follow these simple steps. You can also try a live demo on [Netlify](https://silly-elion-99ee40.netlify.app/#/) 
 ### Prerequisites
 - [NodeJS](https://nodejs.org/en/)
 
