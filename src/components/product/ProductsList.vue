@@ -1,4 +1,5 @@
 <template>
+
   <div v-for="(product,index) in products" :key="index" class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
     <div>
       <img @click="handleImageClick(product)" class="hover:grow hover:shadow-lg" :src="product.image">
@@ -21,8 +22,14 @@
 </template>
 
 <script setup>
-let props = defineProps(["products"]);
+import { computed } from "@vue/reactivity";
+import { useStore } from "vuex";
+
 let emit = defineEmits(["openProduct", "addToCart"]);
+
+const store = useStore();
+const products = computed(() => store.state.products.all);
+store.dispatch("products/getAllProducts");
 
 const handleImageClick = (product) => {
   emit("openProduct", product);
