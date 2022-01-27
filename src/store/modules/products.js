@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import shop from '../../api/shop'
 // initial state
 const state = {
     all: []
@@ -11,10 +11,9 @@ const getters = {}
 // actions
 const actions = {
     getAllProducts({ commit }) {
-        axios.get('https://ott-fogliata.github.io/vuejs-s2i-repository/cultured-meat.json')
-            .then(response => {
-                commit('SET_PRODUCTS', response.data);
-            });
+        shop.getProducts(products => {
+            commit('SET_PRODUCTS', products); 
+        })
     }
 }
 
