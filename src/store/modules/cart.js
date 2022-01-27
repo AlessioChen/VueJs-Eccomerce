@@ -40,10 +40,6 @@ const getters = {
         return false;
 
     },
-    getDiscount: () => {
-        console.log(state.discount);
-        return state.discount;
-    }
 }
 
 // actions
