@@ -1,9 +1,12 @@
 import { createStore } from "vuex";
-import products from './modules/products'
-
+import products from './modules/products';
+import cart from './modules/cart';
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
     modules: {
-        products
+        products, 
+        cart
     }, 
+    plugins: [createPersistedState()]
 })

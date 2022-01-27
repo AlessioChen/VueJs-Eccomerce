@@ -13,11 +13,11 @@
 
     <!-- main content   -->
     <div class="mb-12">
-      <ul v-for="item in cart" :key="item.id" class="p-8">
+      <ul v-for="item in cart" :key="item.product.name" class="p-8">
         <li class="flex bg-white p-5 rounded-lg shadow-lg mb-5 ">
-          <img :src="item.image" class="w-32" />
+          <img :src="item.product.image" class="w-32" />
           <div class="flex-grow flex flex-col md:flex-row items-center justify-center md:justify-between">
-            <p class="title font-semibold text-sm md:text-lg mb-5 md:mb-0 md:pl-5">{{item.name}}</p>
+            <p class="title font-semibold text-sm md:text-lg mb-5 md:mb-0 md:pl-5">{{item.product.name}}</p>
             <div class="flex">
               <!-- Dec Button -->
               <button @click="handleDecButton(item)" class="ml-1 bg-blue-200 fa fa-minus rounded-lg bg flex justify-center items-center p-3 z-10"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,7 +38,7 @@
                 </svg>
               </button>
             </div>
-            <p class=" text-xl value font-bold mt-5 md:mt-0">€ {{item.price}} x {{item.quantity}} = €{{ singleItemTotal(item)}}</p>
+            <p class=" text-xl value font-bold mt-5 md:mt-0">€ {{item.product.price}} x {{item.quantity}} = €{{ singleItemTotal(item)}}</p>
           </div>
         </li>
 
@@ -66,60 +66,31 @@
 </template>
 
 <script setup >
-import { computed, ref } from "@vue/reactivity";
+import { computed } from "@vue/reactivity";
+import { useStore } from "vuex";
 import Nav from "../components/Nav.vue";
-
-const props = defineProps(["data"]);
 const emit = defineEmits(["openProduct"]);
+const store = useStore();
 
-let cart = ref(JSON.parse(localStorage.getItem("cart")));
-let discount = ref(false);
+const cart = computed(() => store.getters["cart/cartProducts"]);
+const discount = computed(() => store.getters["cart/getDiscount"]);
+const total = computed(() => store.getters["cart/cartTotalPrice"]);
 
-const total = computed(() => {
-  let sum = 0;
-  discount.value = false;
-  for (let i = 0; i < cart.value.length; i++) {
-    sum += cart.value[i].price * cart.value[i].quantity;
-  }
+const handleRemoveButton = (product) => {
+  store.dispatch("cart/removeProduct", product);
+};
 
-  if (cart.value.length > 2) {
-    discount.value = true;
-    let disc = sum / 10;
-    sum -= disc;
-  }
-  return parseFloat(sum).toFixed(2);
-});
+const handleIncButton = (product) => {
+  store.dispatch("cart/addProductToCart", product);
+};
+
+const handleDecButton = (product) => {
+  store.dispatch("cart/decProductQuantity", product);
+};
 
 const singleItemTotal = (item) => {
   computed(() => {});
-  return parseFloat(item.quantity * item.price).toFixed(2);
-};
-
-const handleRemoveButton = (item) => {
-  for (let i = 0; i < cart.value.length; i++) {
-    if (cart.value[i].id == item.id) {
-      cart.value.splice(i, 1);
-      localStorage.setItem("cart", JSON.stringify(cart.value));
-    }
-  }
-};
-
-const handleIncButton = (item) => {
-  for (let i = 0; i < cart.value.length; i++) {
-    if (cart.value[i].id == item.id) {
-      cart.value[i].quantity++;
-      localStorage.setItem("cart", JSON.stringify(cart.value));
-    }
-  }
-};
-
-const handleDecButton = (item) => {
-  for (let i = 0; i < cart.value.length; i++) {
-    if (cart.value[i].id == item.id) {
-      if (cart.value[i].quantity > 1) cart.value[i].quantity--;
-      localStorage.setItem("cart", JSON.stringify(cart.value));
-    }
-  }
+  return parseFloat(item.quantity * item.product.price).toFixed(2);
 };
 </script>
 
