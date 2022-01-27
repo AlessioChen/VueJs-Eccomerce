@@ -10,8 +10,9 @@ const getters = {
         return state.items;
     },
 
-    cartTotalPrice: (state, getters) => {
+    cartTotalPrice: (state) => {
         let sum = 0;
+        state.discount = false; 
         for (let i = 0; i < state.items.length; i++) {
             sum += state.items[i].product.price * state.items[i].quantity;
         }
@@ -24,6 +25,9 @@ const getters = {
         return parseFloat(sum).toFixed(2);
     },
 
+    checkDiscount: (state) => {
+        return state.discount; 
+    }, 
     cartItemCount: (state) => {
         return state.items.length;
     },
@@ -53,7 +57,18 @@ const actions = {
         commit('REMOVE_FROM_CART', product)
 
     },
+    discount({ commit }) {
+        commit("SET_DISCOUNT", false); 
+        console.log(state.discount);
+        if (state.items.length > 2) {
+            commit("SET_DISCOUNT", true);
+        }
 
+    },
+    changeDiscount({ commit }, value) {
+        commit('SET_DISCOUNT', value)
+
+    },
     decProductQuantity({ state, commit }, product) {
         commit('DEC_PRODUCT_QUANTITY', product)
 
@@ -66,6 +81,10 @@ const actions = {
 
 // mutations
 const mutations = {
+
+    SET_DISCOUNT(state, value) {
+        state.discount = value;
+    },
     ADD_TO_CART(state, { product, quantity }) {
 
         let productInCart = state.items.find(item => {
@@ -80,14 +99,16 @@ const mutations = {
         state.items.push({
             product,
             quantity,
-            inCart: true
         });
 
     },
 
     REMOVE_FROM_CART(state, product) {
         for (let i = 0; i < state.items.length; i++) {
-            if (state.items[i].name == product.name) {
+            // console.log(state.items[i].product.name);
+            // console.log(product.name);
+            if (state.items[i].product.name == product.name) {
+
                 state.items.splice(i, 1);
             }
         }
@@ -95,7 +116,7 @@ const mutations = {
 
     DEC_PRODUCT_QUANTITY(state, product) {
         for (let i = 0; i < state.items.length; i++) {
-            if (state.items[i].name == product.name) {
+            if (state.items[i].product.name == product.name) {
                 if (state.items[i].quantity > 1) {
                     state.items[i].quantity--;
                     return
