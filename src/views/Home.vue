@@ -1,5 +1,5 @@
 <template>
-  <Nav :cart="cart" />
+  <Nav  />
   <Products v-if="!showProduct()"/>
   <SingleProduct v-if="showProduct()"/>
 
