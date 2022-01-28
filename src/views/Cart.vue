@@ -69,7 +69,6 @@
 import { computed } from "@vue/reactivity";
 import { useStore } from "vuex";
 import Nav from "../components/Nav.vue";
-const emit = defineEmits(["openProduct"]);
 const store = useStore();
 
 const cart = computed(() => store.getters["cart/cartProducts"]);
@@ -83,6 +82,7 @@ const total = computed(() => store.getters["cart/cartTotalPrice"]);
 const handleRemoveButton = (product) => {
   store.dispatch("cart/removeProduct", product);
 };
+
 
 const handleIncButton = (product) => {
   store.dispatch("cart/addProductToCart", { product });

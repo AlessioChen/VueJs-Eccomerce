@@ -1,27 +1,22 @@
 <template>
-
   <Nav :cart="cart" />
-  <Products v-if="showProducts" />
-  <SingleProduct v-else :product="product" v-on:closeProduct="closeProduct" v-on:addProductToCart="addToCart" />
+  <Products v-if="!showProduct()"/>
+  <SingleProduct v-if="showProduct()"/>
 
 </template>
 
 <script setup>
-import Products from "../components/product/ProductsList.vue";
 import Nav from "../components/Nav.vue";
+import Products from "../components/product/ProductsList.vue";
 import SingleProduct from "../components/product/SingleProduct.vue";
-import { ref } from "@vue/reactivity";
+import { useStore } from "vuex";
 
-let showProducts = ref(true);
-
-const openProduct = (value) => {
-  showProducts.value = false;
-  product.value = value;
+const store = useStore(); 
+const showProduct = () => {
+  return store.getters["products/getShowProduct"];
 };
 
-const closeProduct = () => {
-  showProducts.value = true;
-};
+
 </script>
 
 
