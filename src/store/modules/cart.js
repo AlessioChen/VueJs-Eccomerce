@@ -101,8 +101,6 @@ const mutations = {
 
     REMOVE_FROM_CART(state, product) {
         for (let i = 0; i < state.items.length; i++) {
-            // console.log(state.items[i].product.name);
-            // console.log(product.name);
             if (state.items[i].product.name == product.name) {
 
                 state.items.splice(i, 1);

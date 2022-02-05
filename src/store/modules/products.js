@@ -11,8 +11,8 @@ const state = {
 const getters = {
     getShowProduct(state) {
         return state.showProduct;
-    }, 
-    getProduct(state){
+    },
+    getProduct(state) {
         return state.product
     }
 }
@@ -20,9 +20,19 @@ const getters = {
 // actions
 const actions = {
     getAllProducts({ commit }) {
-        shop.getProducts(products => {
-            commit('SET_PRODUCTS', products);
-        })
+        // try {
+        //     axios.get('https://ott-fogliata.github.io/vuejs-s2i-repository/cultured-meat.json')
+        //         .then(response => {
+        //             commit('SET_PRODUCTS', response.data);
+        //         });
+        // } catch (err) {
+        //     console.log(err);
+        // }
+
+        shop.getProducts().then( ({data}) => {
+            commit('SET_PRODUCTS', data);
+        }); 
+      
     },
     setShowProduct({ commit }, { product, value }) {
         commit('SET_SHOW_PRODUCT', { product, value });

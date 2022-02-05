@@ -1,5 +1,4 @@
 <template>
-  
   <Nav />
   <Products v-if="!showProduct()" />
   <SingleProduct v-if="showProduct()" />
