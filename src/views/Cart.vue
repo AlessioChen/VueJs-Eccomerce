@@ -1,4 +1,5 @@
 <template>
+
   <Nav />
   <div class="w-full h-full bg-gray-100">
     <!--  section 1  -->
@@ -63,6 +64,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup >
@@ -82,7 +84,6 @@ const total = computed(() => store.getters["cart/cartTotalPrice"]);
 const handleRemoveButton = (product) => {
   store.dispatch("cart/removeProduct", product);
 };
-
 
 const handleIncButton = (product) => {
   store.dispatch("cart/addProductToCart", { product });
